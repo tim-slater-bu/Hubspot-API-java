@@ -32,9 +32,13 @@ import java.util.Set;
  */
 public class BaseClient {
 
+    
+    // HAPIKey, API_PATH, API_VERSION are used by subclasses
     protected String HAPIKey = "";
     protected String API_PATH = "";
     protected String API_VERSION = "";
+    
+    // should we use the QA domain
     protected boolean isTest = false;
     protected String PATH_DIV = "/";
     protected String KEY_PARAM = "?hapikey=";
@@ -243,6 +247,7 @@ public class BaseClient {
         return response;
     }
 
+    // Used to take the http response stream and convert to a string.
     protected static String convertStreamToString(java.io.InputStream is) {
         try {
             return new java.util.Scanner(is).useDelimiter("\\A").next();
@@ -251,6 +256,7 @@ public class BaseClient {
         }
     }
 
+    // Converts a map of values into a query string used for GET/POST
     protected String mapToParamList(Map values) {
         StringBuilder sb = new StringBuilder();
         Set entries = values.entrySet();

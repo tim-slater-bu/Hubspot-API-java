@@ -12,6 +12,8 @@ import org.json.JSONArray;
 /**
  *
  * @author TSLATER
+ * This class exposes the Marketing Events API for Hubspot
+ * Requires the use of an API Key (no OAUTH support).
  */
 public class EventsAPI extends BaseClient {
 
@@ -27,10 +29,14 @@ public class EventsAPI extends BaseClient {
         API_VERSION = "v1";
     }
 
+    // default return count is 20
     public Event[] get_events() {
         return get_events(20);
     }
 
+    // return some events from the API
+    // @param max - The maximum number of events to return
+    // @return - returns and array of Event objects.
     public Event[] get_events(int max) {
         HashMap params = new HashMap();
         if (max > 100) {
@@ -57,6 +63,8 @@ public class EventsAPI extends BaseClient {
         return returnedEvents;
     }
 
+    // Creates an event within the hubspot portal
+    // @param event - the event to create.
     public void create_event(Event event) {
         if (event.isCreateable() == false) {
             return;

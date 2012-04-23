@@ -26,10 +26,12 @@ public class ProspectsAPI extends BaseClient {
     public static final String SEARCH_TYPE_REGION = "region";
     public static final String SEARCH_TYPE_COUNTRY = "country";
 
+    // returns if the last get_timeline() call had more results
     public boolean hasMoreTimeLineResults() {
         return timelineHasMore;
     }
 
+    // returns if the last search_prospects() call had more results
     public boolean hasMoreSearchResults() {
         return searchHasMore;
     }
@@ -46,18 +48,25 @@ public class ProspectsAPI extends BaseClient {
         API_VERSION = "v1";
     }
 
+    // reset for calls to get_timeline(), this discards the state of previous
+    // calls in regards to if there are more results.
     public void reset_timeline() {
         timelineOrgOffset = null;
         timelineTimeOffset = null;
         timelineHasMore = true;
     }
 
+    // reset for calls to search_prospects(), this discards the state of previous
+    // calls in regards to if there are more results.
     public void reset_prospect_search() {
         searchOrgOffset = null;
         searchTimeOffset = null;
         searchHasMore = true;
     }
 
+    // returns an array holding the 20 most recent prospects. Subsequent calls return
+    // the next 'page' of data if there were more than 20 results. Calling reset_timeline()
+    // causes the advancing of pages to reset.
     public Prospect[] get_timeline() {
         HashMap params = new HashMap();
         Prospect[] returnedProspects = null;
@@ -84,6 +93,9 @@ public class ProspectsAPI extends BaseClient {
         return returnedProspects;
     }
 
+    // Get the details of a specific organization. 
+    // @param organizationName - name of the organization, generally gotten from
+    //                           a Prospect object. (the organization field)
     public OrganizationDetails get_organization_details(String organizationName) {
         OrganizationDetails details = null;
         organizationName = organizationName.replaceAll(" ", "-");
@@ -98,6 +110,8 @@ public class ProspectsAPI extends BaseClient {
         return details;
     }
 
+    // Gets a TypeAheadResponse that can be used in assisting the user with what they
+    // are typing.
     public TypeAheadResponse get_typeahead(String query) {
         TypeAheadResponse response = null;
         try {
@@ -111,6 +125,9 @@ public class ProspectsAPI extends BaseClient {
         return response;
     }
 
+    // returns an array holding the 20 prospects matching the criteria. Subsequent calls return
+    // the next 'page' of data if there were more than 20 results. Calling reset_prospect_search()
+    // causes the advancing of pages to reset.
     public Prospect[] search_prospects(String searchType, String query) {
         Prospect[] returnedProspects = null;
         try {
@@ -141,10 +158,14 @@ public class ProspectsAPI extends BaseClient {
         return returnedProspects;
     }
 
+    // makes a prospect not show up in the Hubspot Site, used for spam or ISPs.
+    // @param p - The prospect to hide
     public void hide_prospect(Prospect p) {
         hide_prospect(p.organization);
     }
 
+    // makes a prospect not show up in the Hubspot Site, used for spam or ISPs.
+    // @param organizationName - name of the organization to hide.
     public void hide_prospect(String organizationName) {
         try {
             String response = execute_post_request(get_request_url("filters"), "organization=" + URLEncoder.encode(organizationName, "UTF-8"), true);
@@ -152,6 +173,8 @@ public class ProspectsAPI extends BaseClient {
         }
     }
 
+    // Makes a hidden prospect visible again
+    // @param organizationName - name of the organization to unhide.
     public void unhide_prospect(String organizationName) {
         HashMap params = new HashMap();
 
@@ -162,6 +185,7 @@ public class ProspectsAPI extends BaseClient {
         }
     }
 
+    // Gets an array of Hidden Prospects
     public HiddenProspect[] get_hidden_prospects() {
         HiddenProspect[] prospects = null;
         try {

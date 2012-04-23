@@ -1,1 +1,12 @@
-Initial README
+This is a Java Library to assist in the utilization of the Hubspot APIs.
+
+The APIs covered by this library include:
+
+Marketing Events (complete)
+Lead Nurturing (complete)
+Leads (complete)
+Prospects (complete)
+KeyWords (incomplete)
+
+This library was developed by Bellevue University and is provided to the community free of charge.
+

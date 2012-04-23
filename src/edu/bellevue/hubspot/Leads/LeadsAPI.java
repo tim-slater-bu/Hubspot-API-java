@@ -46,6 +46,10 @@ public class LeadsAPI extends BaseClient {
         API_VERSION = "v1";
     }
 
+    // Retrieves a list of leads using the criteria specified
+    // returns 100 leads at a time, changing the PageNumber property
+    // of the LeadSearchCriteria object can be used to get more results.
+    // @param criteria - the search criteria to be used.
     public Lead[] get_leads(LeadSearchCriteria criteria) {
         Lead[] requestedLeads = null;
         String jsonResult = execute_get_request(get_request_url("list", criteria.toHashMap()));
@@ -64,6 +68,8 @@ public class LeadsAPI extends BaseClient {
         return requestedLeads;
     }
 
+    // Get a specific lead
+    // @param leadGuid - guid of the lead you want.
     public Lead get_lead(String leadGuid) {
         Lead returnedLead = null;
         String jsonResult = execute_get_request(get_request_url("lead/" + leadGuid, new HashMap()));
@@ -75,6 +81,10 @@ public class LeadsAPI extends BaseClient {
         return returnedLead;
     }
 
+    // Update the properties of a lead.
+    // @param leadGuid - guid for the lead you want to update
+    // @param data - HashMap containing name/value pairs for 
+    //               the attributes you want to change
     public void update_lead(String leadGuid, HashMap data) {
         String endpoint = "lead/" + leadGuid;
 
@@ -92,6 +102,10 @@ public class LeadsAPI extends BaseClient {
         execute_put_request(get_request_url(endpoint, null), a.toString());
     }
 
+    // Set a lead to closed status
+    // @param leadGuid - guid for the lead you are closing
+    // @param closeData - time in milliseconds since the epoch at which 
+    //                    this lead is to be closed
     public void close_lead(String leadGuid, long closeDate) {
         String endpoint = "lead/" + leadGuid;
         try {
@@ -106,10 +120,14 @@ public class LeadsAPI extends BaseClient {
         }
     }
 
+    // Adds a lead to hubspot by posting data to a hubspot form
+    // @param formUrl - the URL to post data to
+    // @param formValues - HashMap holding the form data to POST
     public void add_lead(String formUrl, HashMap formValues) {
         execute_post_request(formUrl, mapToParamList(formValues), false);
     }
 
+    // Retrieves an array of WebHooks that are registered for the hubspot domain
     public WebHook[] get_webhooks() {
         String endpoint = "callback-url";
         WebHook[] hooks = null;
@@ -130,6 +148,8 @@ public class LeadsAPI extends BaseClient {
         return hooks;
     }
 
+    // Registers a WebHook for the hubspot domain
+    // @param callbackUrl - the URL to register as a webhook
     public void register_webhook(String callbackUrl) {
         String endpoint = "callback-url";
         // need to URL Encode
@@ -140,6 +160,8 @@ public class LeadsAPI extends BaseClient {
 
     }
 
+    // Removes a webhook from the domain.
+    // @param hookGuid - the guid for the hook to remove.
     public void delete_webhook(String hookGuid) {
         String endpoint = "callback-url/" + hookGuid;
         execute_delete_request(get_request_url(endpoint, null), null);

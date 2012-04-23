@@ -10,10 +10,18 @@ import org.json.JSONObject;
  *
  * @author TSLATER
  */
-public class HistoryItem extends NurtureLead{
+public class HistoryItem {
     
-    public HistoryItem(JSONObject jsonObject)
-    {
-        super(jsonObject);
+    public String leadGuid;
+    public String campaignGuid;
+    public String status;
+
+    public HistoryItem(JSONObject jsonObject) {
+        try {
+            leadGuid = jsonObject.getString("leadGuid");
+            campaignGuid = jsonObject.getString("campaignGuid");
+            status = jsonObject.getString("status");
+        } catch (Exception e) {
+        }
     }
 }
