@@ -6,14 +6,14 @@ This library should be usable on standalone java applications along with Android
 
 Current API Status
 -------------
-* Marketing Events (<font color="green">complete</font>)
-* Lead Nurturing (<font color="green">complete</font>)
-* Leads (<font color="green">complete</font>)
-* Prospects (<font color="green">complete</font>)
-* KeyWords (<font color="orange">incomplete</font>)
-* Settings API (<font color="red">not started</font>)
-* OAuth (<font color="red">not started</font>)
-* Blog (<font color="red">not started or forseen</font>)
+* Marketing Events (complete)
+* Lead Nurturing (complete)
+* Leads (complete)
+* Prospects (complete)
+* KeyWords (incomplete)
+* Settings API (not started)
+* OAuth (not started)
+* Blog (not started or forseen)
 
 Author
 -------------
