@@ -23,12 +23,12 @@ package edu.bellevue.hubspot.Leads;
  */
 public enum TimePivot {
 
-    NotSet(""),
-    InsertedAt("insertedAt"),
-    FirstConvertedAt("firstConvertedAt"),
-    LastConvertedAt("lastConvertedAt"),
-    LastModifiedAt("lastModifiedAt"),
-    ClosedAt("closedAt");
+    notSet(""),
+    insertedAt("insertedAt"),
+    firstConvertedAt("firstConvertedAt"),
+    lastConvertedAt("lastConvertedAt"),
+    lastModifiedAt("lastModifiedAt"),
+    closedAt("closedAt");
     private String value;
 
     private TimePivot(String val) {

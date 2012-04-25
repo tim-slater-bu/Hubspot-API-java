@@ -28,87 +28,87 @@ import java.util.List;
  */
 public class LeadSearchCriteria {
 
-    public String Keyword;
-    public String SortField;
-    public SortDirection Direction;
-    public int PageSize;
-    public int PageNumber;
-    public Calendar StartDateUtc;
-    public Calendar StopDateUtc;
-    public TimePivot StartStopDateType;
-    public Boolean ExcludeConversionEvents;
-    public Boolean IncludeOptOutLeads;
-    public Boolean IncludeOnlyEmailEligibleLeads;
-    public Boolean IncludeOnlyBouncedLeads;
-    public Boolean IncludeOnlyNonImportedLeads;
-    public List<String> SpecificLeadGuids;
+    public String keyword;
+    public String sortField;
+    public SortDirection direction;
+    public int pageSize;
+    public int pageNumber;
+    public Calendar startDateUtc;
+    public Calendar stopDateUtc;
+    public TimePivot startStopDateType;
+    public Boolean excludeConversionEvents;
+    public Boolean includeOptOutLeads;
+    public Boolean includeOnlyEmailEligibleLeads;
+    public Boolean includeOnlyBouncedLeads;
+    public Boolean includeOnlyNonImportedLeads;
+    public List<String> specificLeadGuids;
 
     public LeadSearchCriteria() {
-        Keyword = "";
-        SortField = "";
-        PageSize = 100;
-        PageNumber = 1;
-        Direction = SortDirection.NotSet;
-        StartDateUtc = Calendar.getInstance();
-        StartDateUtc.set(1970, 1, 1, 0, 0, 0);
-        StopDateUtc = Calendar.getInstance();
-        StartStopDateType = TimePivot.NotSet;
-        SpecificLeadGuids = new ArrayList<String>();
+        keyword = "";
+        sortField = "";
+        pageSize = 100;
+        pageNumber = 1;
+        direction = SortDirection.notSet;
+        startDateUtc = Calendar.getInstance();
+        startDateUtc.set(1970, 1, 1, 0, 0, 0);
+        stopDateUtc = Calendar.getInstance();
+        startStopDateType = TimePivot.notSet;
+        specificLeadGuids = new ArrayList<String>();
     }
 
     public HashMap toHashMap() {
         HashMap map = new HashMap();
 
-        if (Keyword.trim().length() > 0) {
-            map.put("search", Keyword);
+        if (keyword.trim().length() > 0) {
+            map.put("search", keyword);
         }
 
-        if (SortField.trim().length() > 0) {
-            map.put("sort", SortField);
-            if (Direction == SortDirection.Ascending) {
+        if (sortField.trim().length() > 0) {
+            map.put("sort", sortField);
+            if (direction == SortDirection.ascending) {
                 map.put("dir", "asc");
             }
-            if (Direction == SortDirection.Descending) {
+            if (direction == SortDirection.descending) {
                 map.put("dir", "desc");
             }
         }
 
-        if (this.PageSize >= 1) {
-            map.put("max", Integer.toString(PageSize));
-            if (PageNumber > 1) {
-                int offset = PageNumber - 1 * PageSize;
+        if (this.pageSize >= 1) {
+            map.put("max", Integer.toString(pageSize));
+            if (pageNumber > 1) {
+                int offset = pageNumber - 1 * pageSize;
                 map.put("offset", Integer.toString(offset));
             }
         }
 
-        if (this.StartStopDateType != TimePivot.NotSet) {
-            double start = StartDateUtc.getTimeInMillis();
-            double stop = StopDateUtc.getTimeInMillis();
+        if (this.startStopDateType != TimePivot.notSet) {
+            double start = startDateUtc.getTimeInMillis();
+            double stop = stopDateUtc.getTimeInMillis();
             map.put("startTime", Double.toString(start));
             map.put("stopTime", Double.toString(stop));
 
-            map.put("timePivot", StartStopDateType.getValue());
+            map.put("timePivot", startStopDateType.getValue());
         }
 
-        if (ExcludeConversionEvents != null) {
-            map.put("excludeConversionEvents", ExcludeConversionEvents.toString().toLowerCase());
+        if (excludeConversionEvents != null) {
+            map.put("excludeConversionEvents", excludeConversionEvents.toString().toLowerCase());
         }
 
-        if (IncludeOptOutLeads != null) {
-            map.put("optout", IncludeOptOutLeads.toString().toLowerCase());
+        if (includeOptOutLeads != null) {
+            map.put("optout", includeOptOutLeads.toString().toLowerCase());
         }
-        if (IncludeOnlyEmailEligibleLeads != null) {
-            map.put("eligibleForEmail", IncludeOnlyEmailEligibleLeads.toString().toLowerCase());
+        if (includeOnlyEmailEligibleLeads != null) {
+            map.put("eligibleForEmail", includeOnlyEmailEligibleLeads.toString().toLowerCase());
         }
-        if (IncludeOnlyBouncedLeads != null) {
-            map.put("bounced", IncludeOnlyBouncedLeads.toString().toLowerCase());
+        if (includeOnlyBouncedLeads != null) {
+            map.put("bounced", includeOnlyBouncedLeads.toString().toLowerCase());
         }
-        if (IncludeOnlyNonImportedLeads != null) {
-            map.put("isNotImported", IncludeOnlyNonImportedLeads.toString().toLowerCase());
+        if (includeOnlyNonImportedLeads != null) {
+            map.put("isNotImported", includeOnlyNonImportedLeads.toString().toLowerCase());
         }
 
         int counter = 0;
-        for (String s : this.SpecificLeadGuids) {
+        for (String s : this.specificLeadGuids) {
             map.put("guids[" + Integer.toString(counter).trim() + "]", s);
             counter++;
         }

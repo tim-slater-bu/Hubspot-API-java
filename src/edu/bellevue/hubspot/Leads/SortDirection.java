@@ -23,7 +23,7 @@ package edu.bellevue.hubspot.Leads;
  */
 public enum SortDirection {
 
-    NotSet(0), Ascending(1), Descending(2);
+    notSet(0), ascending(1), descending(2);
     private int value;
 
     private SortDirection(int val) {

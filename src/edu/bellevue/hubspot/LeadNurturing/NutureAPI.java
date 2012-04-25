@@ -5,6 +5,7 @@
 package edu.bellevue.hubspot.LeadNurturing;
 
 import edu.bellevue.hubspot.BaseClient;
+import edu.bellevue.hubspot.Leads.Lead;
 import java.util.HashMap;
 import org.json.JSONArray;
 
@@ -110,6 +111,14 @@ public class NutureAPI extends BaseClient {
         execute_post_request(get_request_url("campaign/" + campaignGuid + "/add"),leadGuid, false);
     }
     
+    // subscribes a lead to a campaign
+    // @param l - the lead you are enrolling
+    // @param c - the campaign you want to enroll the lead in
+    public void add_lead_to_campaign(Lead l, Campaign c)
+    {
+        add_lead_to_campaign(l.guid, c.guid);
+    }
+    
     // removes a lead from a campaign
     // @param leadGuid - the guid of the lead you are removing
     // @param campaingGuid - the guid of the campaign you want to remove the lead from
@@ -118,5 +127,12 @@ public class NutureAPI extends BaseClient {
         execute_post_request(get_request_url("campaign/" + campaignGuid + "/remove"),leadGuid, false);
     }
     
+    // removes a lead from a campaign
+    // @param l - the lead you are removing
+    // @param c - the campaign you want to remove the lead from
+    public void remove_lead_from_campaign(Lead l, Campaign c)
+    {
+        remove_lead_from_campaign(l.guid, c.guid);
+    }
     
 }

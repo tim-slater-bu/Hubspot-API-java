@@ -25,15 +25,15 @@ import org.json.JSONObject;
  */
 public class LogEntry {
 
-    public int Id;
-    public double InsertedAt;
-    public boolean PreviousState;
+    public int id;
+    public double insertedAt;
+    public boolean previousState;
 
     public LogEntry(JSONObject jsonObject) {
         try {
-            Id = jsonObject.getInt("id");
-            InsertedAt = jsonObject.getDouble("insertedAt");
-            PreviousState = jsonObject.getBoolean("previousState");
+            id = jsonObject.getInt("id");
+            insertedAt = jsonObject.getDouble("insertedAt");
+            previousState = jsonObject.getBoolean("previousState");
         } catch (Exception e) {
         };
     }

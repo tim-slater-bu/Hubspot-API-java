@@ -25,33 +25,33 @@ import org.json.JSONObject;
  */
 public class CrmDetails {
 
-    public int AnnualRevenue;
-    public int CloseProbability;
-    public int CrmType;
-    public int EstimatedRevenue;
-    public String Id;
-    public String NextAction;
-    public int NextActionAssignedTo;
-    public String NextActionAssignedToEmail;
-    public int NextActionDue;
-    public int NumEmployees;
-    public String Status;
+    public int annualRevenue;
+    public int closeProbability;
+    public int crmType;
+    public int estimatedRevenue;
+    public String id;
+    public String nextAction;
+    public int nextActionAssignedTo;
+    public String nextActionAssignedToEmail;
+    public int nextActionDue;
+    public int numEmployees;
+    public String status;
     
     public CrmDetails (JSONObject jsonObject)
     {
         try
         {
-        AnnualRevenue = jsonObject.getInt("annualRevenue");
-        CloseProbability = jsonObject.getInt("closeProbability");
-        CrmType = jsonObject.getInt("crmType");
-        EstimatedRevenue = jsonObject.getInt("estimatedRevenue");
-        Id = jsonObject.getString("id");
-        NextAction = jsonObject.getString("nextAction");
-        NextActionAssignedTo = jsonObject.getInt("nextActionAssignedTo");
-        NextActionAssignedToEmail = jsonObject.getString("nextActionAssignedToEmail");
-        NextActionDue = jsonObject.getInt("nextActionDue");
-        NumEmployees = jsonObject.getInt("numEmployees");
-        Status = jsonObject.getString("status");
+        annualRevenue = jsonObject.getInt("annualRevenue");
+        closeProbability = jsonObject.getInt("closeProbability");
+        crmType = jsonObject.getInt("crmType");
+        estimatedRevenue = jsonObject.getInt("estimatedRevenue");
+        id = jsonObject.getString("id");
+        nextAction = jsonObject.getString("nextAction");
+        nextActionAssignedTo = jsonObject.getInt("nextActionAssignedTo");
+        nextActionAssignedToEmail = jsonObject.getString("nextActionAssignedToEmail");
+        nextActionDue = jsonObject.getInt("nextActionDue");
+        numEmployees = jsonObject.getInt("numEmployees");
+        status = jsonObject.getString("status");
         }
         catch(Exception e)
         {}     
