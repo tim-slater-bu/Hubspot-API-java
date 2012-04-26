@@ -185,6 +185,30 @@ public class ProspectsAPI extends BaseClient {
         }
     }
 
+    // Makes a hidden prospect visible again
+    // @param p - Prospect to unhide.
+    public void unhide_prospect(Prospect p) {
+        HashMap params = new HashMap();
+
+        try {
+            params.put("organization", URLEncoder.encode(p.organization, "UTF-8"));
+            execute_delete_request(get_request_url("filters", params), "");
+        } catch (Exception e) {
+        }
+    }
+    
+    // Makes a hidden prospect visible again
+    // @param p - Prospect to unhide.
+    public void unhide_prospect(HiddenProspect p) {
+        HashMap params = new HashMap();
+
+        try {
+            params.put("organization", URLEncoder.encode(p.organization, "UTF-8"));
+            execute_delete_request(get_request_url("filters", params), "");
+        } catch (Exception e) {
+        }
+    }
+    
     // Gets an array of Hidden Prospects
     public HiddenProspect[] get_hidden_prospects() {
         HiddenProspect[] prospects = null;

@@ -17,21 +17,43 @@
 */
 package edu.bellevue.hubspot.Leads;
 
+import org.json.JSONObject;
+
 /**
  *
  * @author TSLATER
  */
 public class FormSubmissionValue {
 
-    public String ConversionGuid;
-    public double ConvertDate;
-    public String FieldLabel;
-    public String FieldName;
-    public String FieldValue;
-    public String FormGuid;
-    public int FormId;
-    public String FormName;
-    public Object Id;
-    public String LeadGuid;
-    public int PortalId;
+    public String conversionGuid;
+    public double convertDate;
+    public String fieldLabel;
+    public String fieldName;
+    public String fieldValue;
+    public String formGuid;
+    public int formId;
+    public String formName;
+    public long id;
+    public String leadGuid;
+    public int portalId;
+    
+    public FormSubmissionValue(JSONObject jsonObject)
+    {
+        try
+        {
+            conversionGuid = jsonObject.getString("conversionGuid");
+            convertDate = jsonObject.getLong("convertDate");
+            fieldLabel = jsonObject.getString("fieldLabel");
+            fieldName = jsonObject.getString("fieldName");
+            fieldValue = jsonObject.getString("fieldValue");
+            formGuid = jsonObject.getString("formGuid");
+            formId = jsonObject.getInt("formId");
+            formName = jsonObject.getString("formName");
+            id = jsonObject.getLong("id");
+            leadGuid = jsonObject.getString("leadGuid");
+            portalId = jsonObject.getInt("portalId");
+        }catch(Exception e){}
+        
+    }
+    
 }

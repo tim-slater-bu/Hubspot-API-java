@@ -22,7 +22,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        if (false) {
+        if (true){
             performLeadTests();
         }
 
@@ -34,7 +34,7 @@ public class Main {
             performNutureTests();
         }
 
-        if (true) {
+        if (false) {
             performProspectTests();
         }
     }
@@ -94,21 +94,21 @@ public class Main {
         // Testing out lead searching  
         LeadsAPI client = new LeadsAPI("demo");
         LeadSearchCriteria criteria = new LeadSearchCriteria();
-        criteria.PageSize = 100;
-        criteria.SortField = "lastName";
-        criteria.Direction = SortDirection.Descending;
-        criteria.Keyword = "Fallon";
+        criteria.pageSize = 100;
+        criteria.sortField = "lastName";
+        criteria.direction = SortDirection.descending;
+        criteria.keyword = "Fallon";
         Lead[] leads = client.get_leads(criteria);
-        System.out.println(leads[3].Guid);
+        System.out.println(leads[3].guid);
 
         // Testing retrival of a specific lead
-        Lead specificLead = client.get_lead(leads[3].Guid);
-        System.out.println(specificLead.LastName + ", " + specificLead.FirstName);
+        Lead specificLead = client.get_lead(leads[3].guid);
+        System.out.println(specificLead.lastName + ", " + specificLead.firstName);
 
         HashMap newValues = new HashMap();
         newValues.put("lastName", "Fallon");
         newValues.put("firstName", "Jimmy");
-        client.update_lead(leads[3].Guid, newValues);
+        client.update_lead(leads[3].guid, newValues);
 
         //Testing web hook retrieval
         WebHook[] s = client.get_webhooks();

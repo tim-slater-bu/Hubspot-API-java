@@ -25,33 +25,33 @@ import org.json.JSONObject;
  */
 public class AnalyticsDetails {
 
-    public boolean AllViewsImported;
-    public double CountsModifiedAt;
-    public double FirstVisitAt;
-    public String Id;
-    public double LastPageViewAt;
-    public double LastVisitAt;
-    public String LeadGuid;
-    public int LeadId;
-    public int PageViewCount;
-    public int PortalId;
-    public String UserToken;
-    public int VisitCount;
+    public boolean allViewsImported;
+    public double countsModifiedAt;
+    public double firstVisitAt;
+    public String id;
+    public double lastPageViewAt;
+    public double lastVisitAt;
+    public String leadGuid;
+    public int leadId;
+    public int pageViewCount;
+    public int portalId;
+    public String userToken;
+    public int visitCount;
 
     public AnalyticsDetails(JSONObject jsonObject) {
         try {
-            AllViewsImported = jsonObject.getBoolean("allViewsImported");
-            CountsModifiedAt = jsonObject.getDouble("countsModifiedAt");
-            FirstVisitAt = jsonObject.getDouble("firstVisitAt");
-            Id = jsonObject.getString("id");
-            LastPageViewAt = jsonObject.getDouble("lastPageViewAt");
-            LastVisitAt = jsonObject.getDouble("lastVisitAt");
-            LeadGuid = jsonObject.getString("leadGuid");
-            LeadId = jsonObject.getInt("leadId");
-            PageViewCount = jsonObject.getInt("pageViewCount");
-            PortalId = jsonObject.getInt("portalId");
-            UserToken = jsonObject.getString("userToken");
-            VisitCount = jsonObject.getInt("visitCount");
+            allViewsImported = jsonObject.getBoolean("allViewsImported");
+            countsModifiedAt = jsonObject.getDouble("countsModifiedAt");
+            firstVisitAt = jsonObject.getDouble("firstVisitAt");
+            id = jsonObject.getString("id");
+            lastPageViewAt = jsonObject.getDouble("lastPageViewAt");
+            lastVisitAt = jsonObject.getDouble("lastVisitAt");
+            leadGuid = jsonObject.getString("leadGuid");
+            leadId = jsonObject.getInt("leadId");
+            pageViewCount = jsonObject.getInt("pageViewCount");
+            portalId = jsonObject.getInt("portalId");
+            userToken = jsonObject.getString("userToken");
+            visitCount = jsonObject.getInt("visitCount");
 
         } catch (Exception e) {
         }

@@ -17,6 +17,7 @@
 */
 package edu.bellevue.hubspot.Leads;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -25,33 +26,42 @@ import org.json.JSONObject;
  */
 public class LeadConversionEvent {
 
-    public double ConvertDate;
-    public String FormGuid;
-    public int FormId;
-    public String FormName;
-    public FormSubmissionValue[] FormSubmissionValues;
-    public String Guid;
-    public int Id;
-    public String LeadGuid;
-    public String PageName;
-    public String PageType;
-    public String PageUrl;
-    public int PortalId;
+    public double convertDate;
+    public String formGuid;
+    public int formId;
+    public String formName;
+    public FormSubmissionValue[] formSubmissionValues;
+    public String guid;
+    public int id;
+    public String leadGuid;
+    public String pageName;
+    public String pageType;
+    public String pageUrl;
+    public int portalId;
 
     LeadConversionEvent(JSONObject jsonObject) {
         try {
-            ConvertDate = jsonObject.getDouble("convertDate");
-            FormGuid = jsonObject.getString("formGuid");
-            FormId = jsonObject.getInt("formId");
-            FormName = jsonObject.getString("formName");
-            // FormSubmissionValues()
-            Guid = jsonObject.getString("guid");
-            Id = jsonObject.getInt("id");
-            LeadGuid = jsonObject.getString("leadGuid");
-            PageName = jsonObject.getString("pageName");
-            PageType = jsonObject.getString("pageType");
-            PageUrl = jsonObject.getString("pageUrl");
-            PortalId = jsonObject.getInt("portalId");
+            convertDate = jsonObject.getDouble("convertDate");
+            formGuid = jsonObject.getString("formGuid");
+            formId = jsonObject.getInt("formId");
+            formName = jsonObject.getString("formName");
+            // TODO: Implement this piece :)
+            try{
+            JSONArray formValues = jsonObject.getJSONArray("formSubmissionValues");
+            formSubmissionValues = new FormSubmissionValue[formValues.length()];
+            for (int x = 0; x < formValues.length(); x++)
+            {
+                formSubmissionValues[x] = new FormSubmissionValue(formValues.getJSONObject(x));
+            }
+            }catch(Exception e){}
+            // formSubmissionValues()
+            guid = jsonObject.getString("guid");
+            id = jsonObject.getInt("id");
+            leadGuid = jsonObject.getString("leadGuid");
+            pageName = jsonObject.getString("pageName");
+            pageType = jsonObject.getString("pageType");
+            pageUrl = jsonObject.getString("pageUrl");
+            portalId = jsonObject.getInt("portalId");
         } catch (Exception e) {
         }
     }

@@ -120,9 +120,43 @@ public class LeadsAPI extends BaseClient {
         }
     }
 
+    // Set a lead to closed status
+    // @param leadGuid - guid for the lead you are closing
+    // @param closeData - time in milliseconds since the epoch at which 
+    //                    this lead is to be closed
+    public void close_lead(String leadGuid) {
+        String endpoint = "lead/" + leadGuid;
+        try {
+            HashMap newValues = new HashMap();
+            newValues.put("id", leadGuid);
+            newValues.put("closedAt", Long.toString(System.currentTimeMillis()).trim());
+            newValues.put("isCustomer", "true");
+            String body = (new JSONObject(newValues)).toString();
+
+            execute_put_request(get_request_url(endpoint, null), body);
+        } catch (Exception e) {
+        }
+    }
+    
+    // Set a lead to closed status
+    // @param l - the lead you are closing
+    public void close_lead(Lead l)
+    {
+        close_lead(l.guid);
+    }
+    
+    // Set a lead to closed status
+    // @param l - the lead you are closing
+    // @param closeData - time in milliseconds since the epoch at which 
+    //                    this lead is to be closed
+    public void close_lead(Lead l, long closeDate)
+    {
+        close_lead(l.guid,closeDate);
+    }
     // Adds a lead to hubspot by posting data to a hubspot form
     // @param formUrl - the URL to post data to
     // @param formValues - HashMap holding the form data to POST
+    
     public void add_lead(String formUrl, HashMap formValues) {
         execute_post_request(formUrl, mapToParamList(formValues), false);
     }
@@ -164,6 +198,13 @@ public class LeadsAPI extends BaseClient {
     // @param hookGuid - the guid for the hook to remove.
     public void delete_webhook(String hookGuid) {
         String endpoint = "callback-url/" + hookGuid;
+        execute_delete_request(get_request_url(endpoint, null), null);
+    }
+    
+    // Removes a webhook from the domain.
+    // @param hookGuid - the hook to remove.
+    public void delete_webhook(WebHook hook) {
+        String endpoint = "callback-url/" + hook.guid;
         execute_delete_request(get_request_url(endpoint, null), null);
     }
 }
