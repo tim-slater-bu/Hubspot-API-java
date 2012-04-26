@@ -41,6 +41,7 @@ public class LeadSearchCriteria {
     public Boolean IncludeOnlyEmailEligibleLeads;
     public Boolean IncludeOnlyBouncedLeads;
     public Boolean IncludeOnlyNonImportedLeads;
+    public Boolean IncludeDeletedLeads;
     public List<String> SpecificLeadGuids;
 
     public LeadSearchCriteria() {
@@ -54,6 +55,7 @@ public class LeadSearchCriteria {
         StopDateUtc = Calendar.getInstance();
         StartStopDateType = TimePivot.NotSet;
         SpecificLeadGuids = new ArrayList<String>();
+        IncludeDeletedLeads = false;
     }
 
     public HashMap toHashMap() {
@@ -105,6 +107,10 @@ public class LeadSearchCriteria {
         }
         if (IncludeOnlyNonImportedLeads != null) {
             map.put("isNotImported", IncludeOnlyNonImportedLeads.toString().toLowerCase());
+        }
+        if (IncludeDeletedLeads)
+        {
+            map.put("includeDeleted","true");
         }
 
         int counter = 0;
