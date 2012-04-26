@@ -28,34 +28,34 @@ import java.util.List;
  */
 public class LeadSearchCriteria {
 
-    public String Keyword;
-    public String SortField;
-    public SortDirection Direction;
-    public int PageSize;
-    public int PageNumber;
-    public Calendar StartDateUtc;
-    public Calendar StopDateUtc;
-    public TimePivot StartStopDateType;
-    public Boolean ExcludeConversionEvents;
-    public Boolean IncludeOptOutLeads;
-    public Boolean IncludeOnlyEmailEligibleLeads;
-    public Boolean IncludeOnlyBouncedLeads;
-    public Boolean IncludeOnlyNonImportedLeads;
-    public Boolean IncludeDeletedLeads;
-    public List<String> SpecificLeadGuids;
+    public String keyword;
+    public String sortField;
+    public SortDirection direction;
+    public int pageSize;
+    public int pageNumber;
+    public Calendar startDateUtc;
+    public Calendar stopDateUtc;
+    public TimePivot startStopDateType;
+    public Boolean excludeConversionEvents;
+    public Boolean includeOptOutLeads;
+    public Boolean includeOnlyEmailEligibleLeads;
+    public Boolean includeOnlyBouncedLeads;
+    public Boolean includeOnlyNonImportedLeads;
+    public Boolean includeDeletedLeads;
+    public List<String> specificLeadGuids;
 
     public LeadSearchCriteria() {
-        Keyword = "";
-        SortField = "";
-        PageSize = 100;
-        PageNumber = 1;
-        Direction = SortDirection.NotSet;
-        StartDateUtc = Calendar.getInstance();
-        StartDateUtc.set(1970, 1, 1, 0, 0, 0);
-        StopDateUtc = Calendar.getInstance();
-        StartStopDateType = TimePivot.NotSet;
-        SpecificLeadGuids = new ArrayList<String>();
-        IncludeDeletedLeads = false;
+        keyword = "";
+        sortField = "";
+        pageSize = 100;
+        pageNumber = 1;
+        direction = SortDirection.notSet;
+        startDateUtc = Calendar.getInstance();
+        startDateUtc.set(1970, 1, 1, 0, 0, 0);
+        stopDateUtc = Calendar.getInstance();
+        startStopDateType = TimePivot.notSet;
+        specificLeadGuids = new ArrayList<String>();
+        includeDeletedLeads = false;
     }
 
     public HashMap toHashMap() {
@@ -108,7 +108,7 @@ public class LeadSearchCriteria {
         if (includeOnlyNonImportedLeads != null) {
             map.put("isNotImported", includeOnlyNonImportedLeads.toString().toLowerCase());
         }
-        if (IncludeDeletedLeads)
+        if (includeDeletedLeads)
         {
             map.put("includeDeleted","true");
         }
