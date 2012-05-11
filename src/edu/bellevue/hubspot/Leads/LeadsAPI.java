@@ -1,20 +1,18 @@
 /**
-* Copyright 2012 Bellevue University.
-*
-*   Licensed under the Apache License, Version 2.0 (the 
-* "License"); you may not use this file except in compliance 
-* with the License.
-*   You may obtain a copy of the License at
-*
-*       http://www.apache.org/licenses/LICENSE-2.0
-*
-*   Unless required by applicable law or agreed to in writing, 
-* software distributed under the License is distributed on an 
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
-* either express or implied.  See the License for the specific 
-* language governing permissions and limitations under the 
-* License.
-*/
+ * Copyright 2012 Bellevue University.
+ * 
+* Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ * 
+* Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package edu.bellevue.hubspot.Leads;
 
 import edu.bellevue.hubspot.BaseClient;
@@ -68,7 +66,7 @@ public class LeadsAPI extends BaseClient {
         return requestedLeads;
     }
 
-    // Get a specific lead
+    // Get a specific lead using the lead GUID
     // @param leadGuid - guid of the lead you want.
     public Lead get_lead(String leadGuid) {
         Lead returnedLead = null;
@@ -81,6 +79,52 @@ public class LeadsAPI extends BaseClient {
         return returnedLead;
     }
 
+    // Get a specific lead using the userToken
+    // @param leadGuid - guid of the lead you want.
+    public Lead get_lead_by_user_token(String userToken) {
+        Lead returnedLead = null;
+        String jsonResult = execute_get_request(get_request_url("lead/", new HashMap()) + "&userToken=" + userToken);
+        try {
+            JSONObject leadObject = new JSONObject(jsonResult);
+            returnedLead = new Lead(leadObject);
+        } catch (Exception e) {
+        }
+        return returnedLead;
+    }
+
+    // Get a specific lead using the email address
+    // @param leadGuid - guid of the lead you want.
+    public Lead get_lead_by_email(String email) {
+        Lead returnedLead = null;
+        try {
+
+            String jsonResult = execute_get_request(get_request_url("lead/", new HashMap()) + "&email=" + URLEncoder.encode(email, "UTF-8"));
+            try {
+                JSONObject leadObject = new JSONObject(jsonResult);
+                returnedLead = new Lead(leadObject);
+            } catch (Exception e) {
+            }
+        } catch (Exception ex) {
+        }
+        return returnedLead;
+    }
+
+    // Get a specific lead using the email address
+    // @param leadGuid - guid of the lead you want.
+    public Lead get_lead_by_conversion_event_guid(String cvGuid) {
+        Lead returnedLead = null;
+        try {
+
+            String jsonResult = execute_get_request(get_request_url("lead/", new HashMap()) + "&conversionEventGuid=" + URLEncoder.encode(cvGuid, "UTF-8"));
+            try {
+                JSONObject leadObject = new JSONObject(jsonResult);
+                returnedLead = new Lead(leadObject);
+            } catch (Exception e) {
+            }
+        } catch (Exception ex) {
+        }
+        return returnedLead;
+    }
     // Update the properties of a lead.
     // @param leadGuid - guid for the lead you want to update
     // @param data - HashMap containing name/value pairs for 
@@ -89,7 +133,7 @@ public class LeadsAPI extends BaseClient {
         String endpoint = "lead/" + leadGuid;
 
         // clear any values not able to be updated
-        String[] badValues = new String[]{"guid", "id", "leadId", "isCustomer", "lastConvertedAt", "lastModifiedAt", "leadJsonLink", "leadLink", "LeadNurturingActive", "numConversionEvents", "portalId", "publicLeadLink", "sourceValueModifiedAt", "analyticsDetails", "crmDetails", "leadConversionEvents"};
+        String[] badValues = new String[]{"id", "leadId", "isCustomer", "lastConvertedAt", "lastModifiedAt", "leadJsonLink", "leadLink", "LeadNurturingActive", "numConversionEvents", "portalId", "publicLeadLink", "sourceValueModifiedAt", "analyticsDetails", "crmDetails", "leadConversionEvents"};
         List badList = Arrays.asList(badValues);
         Iterator keys = data.keySet().iterator();
         while (keys.hasNext()) {
@@ -137,26 +181,24 @@ public class LeadsAPI extends BaseClient {
         } catch (Exception e) {
         }
     }
-    
+
     // Set a lead to closed status
     // @param l - the lead you are closing
-    public void close_lead(Lead l)
-    {
+    public void close_lead(Lead l) {
         close_lead(l.guid);
     }
-    
+
     // Set a lead to closed status
     // @param l - the lead you are closing
     // @param closeData - time in milliseconds since the epoch at which 
     //                    this lead is to be closed
-    public void close_lead(Lead l, long closeDate)
-    {
-        close_lead(l.guid,closeDate);
+    public void close_lead(Lead l, long closeDate) {
+        close_lead(l.guid, closeDate);
     }
     // Adds a lead to hubspot by posting data to a hubspot form
     // @param formUrl - the URL to post data to
     // @param formValues - HashMap holding the form data to POST
-    
+
     public void add_lead(String formUrl, HashMap formValues) {
         execute_post_request(formUrl, mapToParamList(formValues), false);
     }
@@ -200,7 +242,7 @@ public class LeadsAPI extends BaseClient {
         String endpoint = "callback-url/" + hookGuid;
         execute_delete_request(get_request_url(endpoint, null), null);
     }
-    
+
     // Removes a webhook from the domain.
     // @param hookGuid - the hook to remove.
     public void delete_webhook(WebHook hook) {

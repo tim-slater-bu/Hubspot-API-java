@@ -99,7 +99,18 @@ public class Main {
         criteria.direction = SortDirection.descending;
         criteria.keyword = "Fallon";
         Lead[] leads = client.get_leads(criteria);
-        System.out.println(leads[3].guid);
+        
+        Lead l1 = client.get_lead(leads[0].guid);
+        Lead l2 = client.get_lead_by_user_token(leads[0].userToken);
+        Lead l3 = client.get_lead_by_email(leads[0].email);
+        Lead l4 = null;
+        if (leads[0].leadConversionEvents != null && leads[0].leadConversionEvents.length > 0)
+        {
+            l4 = client.get_lead_by_conversion_event_guid(leads[0].leadConversionEvents[0].guid);
+        }
+        
+        
+        System.out.println(leads[0].guid);
 
         // Testing retrival of a specific lead
         Lead specificLead = client.get_lead(leads[3].guid);
